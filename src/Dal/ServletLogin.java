@@ -11,12 +11,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import controle.Usuario;
+import controle.UsuarioLogado;
 
 /**
  *
@@ -24,72 +29,45 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ServletLogin extends HttpServlet {
 
-    Connection conexao = null;
+	private Usuario usuario;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doPost(request, response);
-    }
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
 
-        try {
-            conexao = ModuloConexao.conector();
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletIndex.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        PreparedStatement pst = null;
-        ResultSet rs = null;
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        try {
-            String usuario = request.getParameter("usuario");
-            String senha = request.getParameter("senha");
-            
-            if (request.getParameter("acao").equals("Entrar")){
+		HttpSession sessao = request.getSession();
 
-                String sql = "select * from login where usuario = ? and senha = ?";
-                pst = conexao.prepareStatement(sql);
-                pst.setString(1, usuario);
-                pst.setString(2, senha);
-                rs = pst.executeQuery();
-                
-                if(rs.next()){
-                    response.sendRedirect("index.jsp");
-                }  else{
-                    request.setAttribute("erro_login", "Login ou senha incorretos!");
-                    request.getRequestDispatcher("/erro.jsp").forward(request, response);             
-                }
-           }
-                
+		try {
+			String usuario = request.getParameter("usuario");
+			String senha = request.getParameter("senha");            
 
-        } catch (Exception e) {
-            System.err.print("Erro na operação - " + e);
-        } finally {
-            if (conexao != null) {
-                try {
-                    conexao.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletIndex.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (pst != null) {
-                try {
-                    pst.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletIndex.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletIndex.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
+
+			if (request.getParameter("acao").equals("Entrar")){
+				this.usuario = new UsuarioLogado().getUsuario(usuario, senha);
+
+				if(this.usuario !=null){
+					sessao.setAttribute("usuario", this.usuario);
+					response.sendRedirect("sec/index.jsp");
+				}else{
+					request.setAttribute("erro", "login ou senha incorretos");
+					request.getRequestDispatcher("/login.jsp").forward(request, response);
+				}
+			}
+
+			if(request.getParameter("acao").equals("Sair")){
+				sessao.invalidate();
+				response.sendRedirect("login.jsp");
+			}
+		} catch (Exception e) {
+			System.err.print("Erro na operac�o - " + e);
+		} 
+	}
 
 }

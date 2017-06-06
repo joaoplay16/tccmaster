@@ -19,7 +19,7 @@
     <servlet-name>ServletLogin</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>ServletTrabalhos</servlet-name>
     <servlet-class>Dal.ServletTrabalhos</servlet-class>
   </servlet>

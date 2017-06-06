@@ -16,9 +16,9 @@ public class Removedor {
 		
 		conexao = ModuloConexao.conector();			
 		
-			for (int i = 0; i <= ids.length; i++) {
+			for (int i = 0; i < ids.length; i++) {
 
-				String sql = "delete from cadastro_tcc where id = ?";
+				String sql = "delete from cadastro_tcc where registro = ?";
 
 				pst = conexao.prepareStatement(sql);
 

@@ -1,6 +1,7 @@
 package Dal;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,8 +41,8 @@ public class ServletTrabalhos extends HttpServlet {
 
 				lista = new ListaDeTrabalhos().pegarTrabalho("titulo");
 				request.setAttribute("lista", lista);
-				request.getRequestDispatcher("/trabalhos.jsp").forward(request, response);
-//				return;
+				request.getRequestDispatcher("sec/trabalhos.jsp").forward(request, response);
+				return;
 			}
 			
 
@@ -50,8 +51,8 @@ public class ServletTrabalhos extends HttpServlet {
 
 				lista = new ListaDeTrabalhos().pegarTrabalho(modalidade, curso, pesquisaPor, busca, pesquisaPor);
 				request.setAttribute("lista", lista);	
-				request.getRequestDispatcher("/trabalhos.jsp").forward(request, response);
-//				return;
+				request.getRequestDispatcher("sec/trabalhos.jsp").forward(request, response);
+				return;
 			}
 			
 			
@@ -63,7 +64,6 @@ public class ServletTrabalhos extends HttpServlet {
 				response.sendRedirect("trabalhos?txtBusca=");
 			}
 		
-			
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Service(request, response);

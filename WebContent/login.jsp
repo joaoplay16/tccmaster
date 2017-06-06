@@ -1,8 +1,4 @@
-<%-- 
-    Document   : j
-    Created on : 30/03/2017, 19:23:09
-    Author     : FEBAC
-    --%>
+
 
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <!DOCTYPE html>
@@ -13,8 +9,9 @@
         <title> Autenticação</title>
         <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script src="Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="Bootstrap/js/jquery.js" type="text/javascript"></script>
+		<script src="Bootstrap/js/jquery.js" type="text/javascript"></script>
         <link href="css/signin.css" rel="stylesheet" type="text/css"/>
+        <script src="js/login.js" type="text/javascript"></script>
     </head>
     <body>
     
@@ -27,18 +24,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">FEBAC</a>
+    <a class="navbar-brand" href="http://febac.edu.br" target="_blank">FEBAC</a>
 </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Ajuda</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Milena</a>
-          <ul class="dropdown-menu">
-             <li><a href="#">Perfil</a></li>
-            <li><a href="#">Sair</a></li>
-        </ul>
-    </li>
+       
 </ul>
 </div><!-- /.navbar-collapse -->
 </div><!-- /.container-fluid -->
@@ -54,12 +45,15 @@
                 <input class="form-control" type="text" name="usuario" placeholder="Usuário">
                 <label for="senha" class="sr-only">Senha</label>
                 <input class="form-control" type="password" name="senha" placeholder="Senha">
+                <i id="incorreto"></i>
                 <div class="checkbox">
                   <label>
-                  <input type="checkbox" value="remember-me"> <b>Lembrar senha</b>
-                </label>
-            </div>
-            <input type="submit" class="btn btn-lg btn-primary btn-block" name="acao" value="Entrar"/>
+                  		<input type="checkbox" value="remember-me"> <b>Lembrar senha</b>
+                  </label>
+            	</div>
+            	<p id="erro">${erro}</p>
+            <input type="submit" class="btn btn-lg btn-primary btn-block" 
+            name="acao" value="Entrar" "/>
         </form>
     </div>
 </div>

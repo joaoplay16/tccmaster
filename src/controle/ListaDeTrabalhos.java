@@ -17,6 +17,8 @@ public class ListaDeTrabalhos {
 	private List<Trabalho> listaTrabalhos = null; 
 	private StringBuilder sql;
 	
+
+	
 	public List<Trabalho> pegarTrabalho(String orderby){
 		
 		
@@ -34,12 +36,11 @@ public class ListaDeTrabalhos {
 
 			while (rs.next()) {
 				Trabalho t = new Trabalho();
-				t.setId(rs.getInt("id"));
 				t.setRegistro(rs.getInt("registro"));
 				t.setTitulo(rs.getString("titulo"));
 				t.setAutor(rs.getString("autor"));
 				t.setCurso(rs.getString("curso"));
-				t.setTipo(rs.getString("tipo"));
+				t.setModalidade(rs.getString("modalidade"));
 				listaTrabalhos.add(t);
 			}
 
@@ -65,7 +66,7 @@ public class ListaDeTrabalhos {
 			conexao = ModuloConexao.conector();	
 			sql = new StringBuilder();
 			
-				sql.append("select * from cadastro_tcc where tipo = ? ");
+				sql.append("select * from cadastro_tcc where modalidade = ? ");
 				sql.append("and curso = ? and ");
 				sql.append(pesquisaPor);
 				sql.append(" like ? ");
@@ -82,12 +83,11 @@ public class ListaDeTrabalhos {
 
 			while (rs.next()) {
 				Trabalho t = new Trabalho();
-				t.setId(rs.getInt("id"));
 				t.setRegistro(rs.getInt("registro"));
 				t.setTitulo(rs.getString("titulo"));
 				t.setAutor(rs.getString("autor"));
 				t.setCurso(rs.getString("curso"));
-				t.setTipo(rs.getString("tipo"));
+				t.setModalidade(rs.getString("modalidade"));
 				listaTrabalhos.add(t);
 			}			
 			

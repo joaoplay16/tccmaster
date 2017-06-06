@@ -21,12 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ServletIndex extends HttpServlet {
 
-    int id;
-    private int registro;
-    private String titulo;
-    private String autor;
-    private String curso;
-
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -44,18 +38,18 @@ public class ServletIndex extends HttpServlet {
 
         try {
         		if (request.getParameter("acao").equals("Salvar")) {
-                int registro = Integer.parseInt(request.getParameter("registro"));
+                String modalidade= request.getParameter("modalidade");
                 String titulo = request.getParameter("titulo");
                 String autor = request.getParameter("autor");
                 String curso = request.getParameter("curso");
 
-                String sql = "insert into cadastro_tcc (registro, titulo, autor, curso)"
+                String sql = "insert into cadastro_tcc (titulo, autor, curso, modalidade)"
                         + "values(?,?,?,?) ";
                 pst = conexao.prepareStatement(sql);
-                pst.setInt(1, registro);
-                pst.setString(2, titulo);
-                pst.setString(3, autor);
-                pst.setString(4, curso);
+                pst.setString(1, titulo);
+                pst.setString(2, autor);
+                pst.setString(3, curso);
+                pst.setString(4, modalidade);
                 int b = pst.executeUpdate();
 
                 if (b != 0) {
@@ -70,27 +64,15 @@ public class ServletIndex extends HttpServlet {
         } catch (Exception e) {
             System.err.print("Erro na operação - " + e);
         } finally {
-            if (conexao != null) {
-                try {
-                    conexao.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletIndex.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (pst != null) {
-                try {
-                    pst.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletIndex.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServletIndex.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        	try {
+				if(pst!=null && rs != null && conexao != null){
+					conexao.close();
+					pst.close();
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
         }
     }
 

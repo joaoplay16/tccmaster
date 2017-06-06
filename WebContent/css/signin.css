@@ -61,3 +61,8 @@ b,#check{
   color: Ivory
 }
 
+#erro{
+	color: red;
+	text-decoration: blink; 
+}
+

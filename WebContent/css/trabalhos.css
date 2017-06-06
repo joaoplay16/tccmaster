@@ -8,10 +8,6 @@
  
 }
 
-.radio-inline{
-	color: white;
-	font-weight: bold;
-}
 
 .panel-body{
 	background-color:#7A8B8B
@@ -26,9 +22,17 @@ body{
 }
 
 thead{
-    background-color: #8ae234;
+    background-color:#AFE74F
 }
 
 label{
 	color: white
+}
+
+.select{
+	padding-top: 4px;
+}
+
+.btn-group{
+padding-left: 33px	
 }

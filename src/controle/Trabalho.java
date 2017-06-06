@@ -2,20 +2,13 @@ package controle;
 
 public class Trabalho {
 	
-    
-	private int id;
 	private int registro;
 	private String titulo;
 	private String autor;
 	private String curso;
-	private String tipo;
+	private String modalidade;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public int getRegistro() {
 		return registro;
 	}
@@ -41,11 +34,11 @@ public class Trabalho {
 		this.curso = curso;
 	}
 	
-	public String getTipo() {
-		return tipo;
+	public String getModalidade() {
+		return modalidade;
 	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setModalidade(String modalidade) {
+		this.modalidade= modalidade;
 	}
 		
 }

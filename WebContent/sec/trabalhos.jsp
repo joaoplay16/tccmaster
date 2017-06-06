@@ -1,5 +1,4 @@
 
-
 <%@page import="controle.Trabalho"%>
 <%@page import="java.util.List"%>
 <%@page import="controle.ListaDeTrabalhos"%>
@@ -19,10 +18,11 @@
 <title>JSP Page</title>
 <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
+	<link href="css/trabalhos.css" rel="stylesheet"
+	type="text/css" />
 <script src="Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="Bootstrap/js/jquery.js" type="text/javascript"></script>
 <script src="js/trabalhos.js" type="text/javascript"></script>
-<link href="css/trabalhos.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
@@ -35,16 +35,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">FEBAC</a>
+        <a class="navbar-brand" href="http://febac.edu.br" target="_blank">FEBAC</a>
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><b>Ajuda</b></a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><b> Usuário</b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          	<span class="glyphicon glyphicon-user"></span><b> ${sessionScope.usuario.getNome()}</b>
+          </a>
           <ul class="dropdown-menu">
              <li><a href="#">Perfil</a></li>
-            <li><a href="#">Sair</a></li>
+            <li><a href="login?acao=Sair">Sair</a></li>
         </ul>
     </li>
 </ul>
@@ -62,7 +64,7 @@
 
 					<form action="./trabalhos" method="GET">
 						<!-- Pesquisa -->
-						<div class="col-sm-3">
+						<div class="col-sm-3 select">
 							<label for="select">Pesquisa</label>
 							<div class="form-group ">
 								<select class="form-control" name="modalidade" >
@@ -72,7 +74,8 @@
 							</div>
 						</div>
 
-						<div class="col-sm-3">
+						
+						<div class="col-sm-3 select">
 							<label for="select">Curso</label>
 							<div class="form-group ">
 								<select class="form-control" name="curso">
@@ -80,19 +83,22 @@
 									<option value="Enfermagem">Enfermagem</option>
 									<option value="Administracao">Administração</option>
 									<option value="Farmacia">Farmacia</option>
-									<option value="Marketing">Marketing</option>
 								</select>
 							</div>
 						</div>
 
 
-						<div class="radio-inline">
-							<input type="radio" name="pesquisaPor" value="titulo" checked>Titulo
+
+						<div class="btn-group radios" data-toggle="buttons">
+							<label for="" class="btn btn-primary btn-sm active"> <input
+								type="radio" name="pesquisaPor" value="titulo" checked="true">Titulo
+							</label> 
+							<label for="" class="btn btn-primary btn-sm"> <input
+								type="radio" name="pesquisaPor" value="autor">Autor
+							</label>
 						</div>
 
-						<div class="radio-inline">
-							<input type="radio" name="pesquisaPor" value="autor">Autor
-						</div>
+
 
 						<div class="input-group">
 							<div class="input-group-btn">
@@ -101,9 +107,9 @@
 								</button>
 							</div>
 							<!-- input text -->
-							<input class="form-control input-sm" type="text" name="txtBusca" id="txtBusca" >
+							<input class="form-control input-sm" type="text" name="txtBusca" id="txtBusca" autofocus>
 							<div class="input-group-btn">
-								<button class="btn btn-sm btn-info" name="opcao" value="Buscar">Buscar</button>
+								<button class="btn btn-sm btn-default" name="opcao" value="Buscar">Buscar</button>
 							</div>
 						</div>
 
@@ -122,7 +128,7 @@
 						<th class="text-center">Titulo</th>
 						<th class="text-center">Autor</th>
 						<th class="text-center">Curso</th>
-						<th class="text-center">Tipo</th>
+						<th class="text-center">Modalidade</th>
 						<th><span class="glyphicon glyphicon-edit "></span></th>
 					</thead>
 					<tbody>
@@ -137,13 +143,13 @@
     				for(Trabalho item: lista){ 
     				%>  				
 						<tr class="text-center">
-							<td><input type="checkbox" name="check"value="<%=item.getId() %>"></td>
+							<td><input type="checkbox" name="check"value="<%=item.getRegistro() %>"></td>
 							<td><%=item.getRegistro()%></td>
 							<td><%=item.getTitulo() %></td>
 							<td><%=item.getAutor() %></td>
 							<td><%=item.getCurso() %></td>
-							<td><%=item.getTipo() %></td>							
-							<td><button class="btn btn-link"><a href="">Editar</a></button></td>							
+							<td><%=item.getModalidade() %></td>							
+							<td><button class="btn btn-link"><a href="#">Editar</a></button></td>							
 						</tr>
 					<%}
     				}else{
